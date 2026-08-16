@@ -1,4 +1,4 @@
-package bip39
+package main
 
 import "core:strings"
 
