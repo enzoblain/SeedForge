@@ -13,7 +13,13 @@ main :: proc() {
 	bytes := get_bytes(&entropy)
 	indexes := get_indexes(&bytes)
 
-	for i in indexes {
-		fmt.print(words[i], " ")
+	for i, index in indexes {
+		fmt.print(words[i])
+
+		if index < len(indexes) - 1 {
+			fmt.print(" ")
+		}
 	}
+
+	fmt.println()
 }
