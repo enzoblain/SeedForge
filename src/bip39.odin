@@ -46,3 +46,32 @@ load_word_list :: proc() -> ([2048]string, bool) {
 
 	return words, true
 }
+
+get_bytes :: proc(entropy: ^[16]u8) -> (bytes: [17]u8) {
+	hash := sha256(entropy[:])
+
+	copy(bytes[0:16], entropy[:])
+	bytes[16] = hash[0]
+
+	return bytes
+}
+
+get_indexes :: proc(bytes: ^[17]u8) -> (indexes: [12]u16) {
+	for &v, i in indexes {
+		bit_offset := i * 11
+		value: u16 = 0
+
+		for j in 0 ..< 11 {
+			bit_index := bit_offset + j
+			byte_index := bit_index / 8
+			bit_in_byte := 7 - (bit_index % 8)
+			bit := (bytes[byte_index] >> u8(bit_in_byte)) & 1
+
+			value = (value << 1) | u16(bit)
+		}
+
+		v = value
+	}
+
+	return indexes
+}
