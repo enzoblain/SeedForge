@@ -3,7 +3,11 @@ package main
 import "core:fmt"
 
 main :: proc() {
-	words := get_word_list()
+	words, ok := load_word_list()
+
+	if !ok {
+		panic("invalid BIP-39 wordlist: expected exactly 2048 words")
+	}
 
 	entropy := generate_entropy()
 	bytes := get_bytes(&entropy)
