@@ -9,5 +9,6 @@ main :: proc() {
 		panic("invalid BIP-39 wordlist: expected exactly 2048 words")
 	}
 
-	fmt.println(generate_entropy())
+	entropy := generate_entropy()
+	fmt.println(sha256(entropy[:]))
 }
