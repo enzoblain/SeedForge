@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-    tags:
-      - "v*"
 
   pull_request:
 
@@ -25,7 +23,7 @@ jobs:
             name: linux-amd64
             binary: seedforge
 
-          - os: macos-13
+          - os: macos-15-intel
             name: macos-amd64
             binary: seedforge
 
